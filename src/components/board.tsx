@@ -94,7 +94,7 @@ export function Board() {
   const hintContent = hint ? getHintContent(hint) : null;
 
   return (
-    <main className="relative grid min-h-screen justify-items-center items-start overflow-hidden bg-canvas px-4 py-5 sm:place-items-center sm:px-5 sm:py-11">
+    <main className="relative grid min-h-screen justify-items-center items-start overflow-hidden bg-canvas px-6 py-5 sm:place-items-center sm:px-5 sm:py-11">
       <Boxes aria-hidden="true" className="hidden opacity-35 sm:flex" />
       <section
         className="relative z-10 w-full max-w-170 bg-canvas px-0 py-0 sm:rounded-[28px] sm:border-[3px] sm:border-ink sm:bg-surface sm:px-6 sm:py-6 sm:shadow-card-lg"
