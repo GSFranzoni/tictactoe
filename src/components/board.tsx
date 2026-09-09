@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { Info, Lightbulb, RotateCcw, Settings } from "lucide-react";
 import { Boxes } from "@/components/background-boxes";
 import { GameCell } from "@/components/game-cell";
 import { GameStatus } from "@/components/game-status";
+import { MinimaxExplainerDialog } from "@/components/minimax-explainer-dialog";
 import { Scoreboard } from "@/components/scoreboard";
 import { SettingsDialog } from "@/components/settings-dialog";
 import { WinningLine } from "@/components/winning-line";
@@ -55,6 +57,7 @@ const getHintContent = (hint: Hint) => {
 };
 
 export function Board() {
+  const [isMinimaxExplainerOpen, setIsMinimaxExplainerOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const {
     settings,
@@ -186,21 +189,7 @@ export function Board() {
             aria-pressed={Boolean(hint)}
             aria-label={hint ? "Ask AI again" : "Ask AI"}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="2"
-              stroke="currentColor"
-              className="h-4 w-4"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9.7 18.4h4.6M10 21h4m-6.5-7.2A6 6 0 1 1 16.5 14c-.9.8-1.5 1.5-1.7 2.4H9.2c-.2-.9-.8-1.6-1.7-2.4Z"
-              />
-            </svg>
+            <Lightbulb aria-hidden="true" className="h-4 w-4" />
             <span className="hidden sm:inline">{hint ? "Ask AI again" : "Ask AI"}</span>
           </button>
           <button
@@ -209,7 +198,7 @@ export function Board() {
             onClick={resetGame}
             aria-label="Reset the toy"
           >
-            <span aria-hidden="true">↻</span>
+            <RotateCcw aria-hidden="true" className="h-4 w-4" />
             <span className="hidden sm:inline">Reset the toy</span>
           </button>
           <button
@@ -218,23 +207,15 @@ export function Board() {
             onClick={() => setIsSettingsOpen(true)}
             aria-label="Open game settings"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="2"
-              className="h-4 w-4"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M10.33 4.32c.3-1.76 3.04-1.76 3.34 0a1.69 1.69 0 0 0 2.53 1.1c1.55-.88 3.49 1.06 2.61 2.61a1.69 1.69 0 0 0 1.1 2.53c1.76.3 1.76 3.04 0 3.34a1.69 1.69 0 0 0-1.1 2.53c.88 1.55-1.06 3.49-2.61 2.61a1.69 1.69 0 0 0-2.53 1.1c-.3 1.76-3.04 1.76-3.34 0a1.69 1.69 0 0 0-2.53-1.1c-1.55.88-3.49-1.06-2.61-2.61a1.69 1.69 0 0 0-1.1-2.53c-1.76-.3-1.76-3.04 0-3.34a1.69 1.69 0 0 0 1.1-2.53c-.88-1.55 1.06-3.49 2.61-2.61a1.69 1.69 0 0 0 2.53-1.1Z"
-              />
-              <circle cx="12" cy="12" r="3" />
-            </svg>
-            <span className="hidden sm:inline">Settings</span>
+            <Settings aria-hidden="true" className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            className="inline-flex items-center gap-1.5 rounded-[10px] border-2 border-ink bg-teal-soft px-3 py-2 text-xs font-bold text-ink shadow-button transition hover:-translate-x-px hover:-translate-y-px hover:bg-teal-bright hover:shadow-button-hover active:translate-x-0.5 active:translate-y-0.5 active:shadow-button-active sm:px-4"
+            onClick={() => setIsMinimaxExplainerOpen(true)}
+            aria-label="Learn how Minimax works"
+          >
+            <Info aria-hidden="true" className="h-4 w-4" />
           </button>
         </div>
         <p className="sr-only" role="status" aria-live="polite">
@@ -253,6 +234,9 @@ export function Board() {
             setIsSettingsOpen(false);
           }}
         />
+      ) : null}
+      {isMinimaxExplainerOpen ? (
+        <MinimaxExplainerDialog onClose={() => setIsMinimaxExplainerOpen(false)} />
       ) : null}
     </main>
   );

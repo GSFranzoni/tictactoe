@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const rows = Array.from({ length: 150 });
@@ -43,17 +44,10 @@ export const BoxesCore = ({ className, ...rest }: React.HTMLAttributes<HTMLDivEl
               className="relative h-8 w-16 border-r border-t border-ink/25"
             >
               {columnIndex % 2 === 0 && rowIndex % 2 === 0 ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  className="pointer-events-none absolute -left-[22px] -top-[14px] h-6 w-10 text-ink/30 stroke-[1px]"
+                <Plus
                   aria-hidden="true"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
-                </svg>
+                  className="pointer-events-none absolute -left-[22px] -top-[14px] h-6 w-10 text-ink/30 stroke-[1px]"
+                />
               ) : null}
             </motion.div>
           ))}
