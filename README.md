@@ -1,10 +1,8 @@
-<p align="center">
-  <img src="./public/logos/logo.svg" width="88" alt="TicTacToe Minimax logo" />
-</p>
-
 # TicTacToe — Minimax
 
 A small, playable Tic-Tac-Toe game that makes its decision-making visible.
+
+[Play the live demo →](https://gsfranzoni.github.io/tictactoe/)
 
 ![A visual walkthrough of the TicTacToe Minimax game](./public/assets/demo.gif)
 
@@ -31,6 +29,14 @@ It is a small project about algorithms, visualization, and, above all, curiosity
 - Renders a cinematic explanation of the search tree with Remotion.
 
 The game and the video share the same Minimax implementation, so the visualization represents a real search rather than a mocked-up explanation.
+
+## Support the project
+
+If you enjoyed the game, you can make a small donation to support the project through [Buy Me a Coffee](https://buymeacoffee.com/gsfranzoni).
+
+<a href="https://buymeacoffee.com/gsfranzoni">
+  <img src="./public/assets/buymeacoffee.png" width="180" alt="Buy me a coffee QR code" />
+</a>
 
 ## Built with
 
