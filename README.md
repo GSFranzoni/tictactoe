@@ -6,9 +6,7 @@
 
 A small, playable Tic-Tac-Toe game that makes its decision-making visible.
 
-<video src="./assets/demo.mp4" controls muted loop playsinline width="720">
-  Your browser does not support embedded video. <a href="./assets/demo.mp4">Watch the demo</a>.
-</video>
+![A visual walkthrough of the TicTacToe Minimax game](./assets/demo.gif)
 
 ## Why this exists
 
