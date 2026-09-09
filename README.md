@@ -14,7 +14,7 @@ At the time, Minimax felt almost like magic. It explores possible futures, assum
 
 Years later, with more experience as a software engineer, I wanted to revisit that feeling and rebuild the idea with TypeScript and React. The goal was not to make just another Tic-Tac-Toe game. It was to make the algorithm visible — to turn an abstract search into something you can watch unfold.
 
-That is why the project also includes a Remotion visualization: one move expands into possible futures, those futures receive their outcomes, and the tree contracts into the move the algorithm chooses.
+Alongside the project, I also created a short video with Remotion to visualize how Minimax works: one move expands into possible futures, those futures receive their outcomes, and the tree contracts into the move the algorithm chooses.
 
 There is a personal motivation, too. As AI becomes part of everyday development and increasingly complex technology starts to feel ordinary, I wanted to return to the kind of simple algorithm that made programming feel fascinating in the first place.
 
