@@ -1,10 +1,4 @@
-import {
-  useEffect,
-  useState,
-  type MouseEvent,
-  type PointerEvent,
-  type PointerEventHandler,
-} from "react";
+import { useState } from "react";
 import { Coffee, Info, Lightbulb, RotateCcw, Settings } from "lucide-react";
 import { Boxes } from "@/components/background-boxes";
 import { GameCell } from "@/components/game-cell";
@@ -14,7 +8,7 @@ import { Scoreboard } from "@/components/scoreboard";
 import { SettingsDialog } from "@/components/settings-dialog";
 import { WinningLine } from "@/components/winning-line";
 import { type Hint, useTicTacToe } from "@/hooks/use-tictactoe";
-import { playClick, preloadClickSound } from "@/lib/sound";
+import { playControlClick } from "@/lib/sound";
 import { cn } from "@/lib/utils";
 
 const lineCoordinates: Record<string, [number, number, number, number]> = {
@@ -98,16 +92,6 @@ export function Board() {
   const canRequestHint =
     currentPlayer === userPlayer && !isMoving && !isGameOver && winner === null;
   const hintContent = hint ? getHintContent(hint) : null;
-
-  useEffect(() => {
-    preloadClickSound();
-  }, []);
-
-  const playControlClick = (event: PointerEvent<HTMLElement>) => {
-    if (event.target instanceof Element && event.target.closest("button:not(:disabled), a[href]")) {
-      playClick();
-    }
-  };
 
   return (
     <main
