@@ -1,4 +1,10 @@
-import { useEffect, useState, type MouseEvent } from "react";
+import {
+  useEffect,
+  useState,
+  type MouseEvent,
+  type PointerEvent,
+  type PointerEventHandler,
+} from "react";
 import { Coffee, Info, Lightbulb, RotateCcw, Settings } from "lucide-react";
 import { Boxes } from "@/components/background-boxes";
 import { GameCell } from "@/components/game-cell";
@@ -97,7 +103,7 @@ export function Board() {
     preloadClickSound();
   }, []);
 
-  const playControlClick = (event: MouseEvent<HTMLElement>) => {
+  const playControlClick = (event: PointerEvent<HTMLElement>) => {
     if (event.target instanceof Element && event.target.closest("button:not(:disabled), a[href]")) {
       playClick();
     }
@@ -106,7 +112,7 @@ export function Board() {
   return (
     <main
       className="relative grid min-h-screen justify-items-center items-start overflow-visible bg-canvas px-8 py-5 sm:place-items-center sm:overflow-hidden sm:px-6 sm:py-11"
-      onClickCapture={playControlClick}
+      onPointerDownCapture={playControlClick}
     >
       <Boxes aria-hidden="true" className="hidden opacity-35 sm:flex" />
       <section
