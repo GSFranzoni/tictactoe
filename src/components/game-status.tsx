@@ -14,12 +14,12 @@ export function GameStatus({ currentPlayer, winner, message, isThinking }: GameS
 
   return (
     <div
-      className="mx-auto mb-5 flex min-h-8.75 w-fit items-center justify-center gap-2 rounded-full border-2 border-neutral-border px-3.5 py-1.5 text-[13px] font-semibold text-muted"
+      className="mx-auto mb-1 flex min-h-8 w-fit items-center justify-center gap-1.5 rounded-full border-2 border-neutral-border px-3 py-1 text-xs font-semibold text-muted sm:mb-2 sm:min-h-8.75 sm:gap-2 sm:px-3.5 sm:py-1.5 sm:text-[13px]"
       aria-live="polite"
     >
       <span
         className={cn(
-          "h-2.5 w-2.5 rounded-full border-2 border-ink",
+          "h-2 w-2 shrink-0 rounded-full border-2 border-ink sm:h-2.5 sm:w-2.5",
           isO ? "bg-teal-bright" : "bg-yellow",
         )}
         aria-hidden="true"

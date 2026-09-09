@@ -1,22 +1,55 @@
+import { getOtherPlayer, type Player } from "@/lib/game";
+import { cn } from "@/lib/utils";
+
 type Score = { X: number; O: number; draws: number };
 
-export function Scoreboard({ score }: { score: Score }) {
+const playerStyles = {
+  X: {
+    panel: "border-coral-border bg-coral-panel",
+    label: "text-coral",
+  },
+  O: {
+    panel: "border-teal-border bg-teal-panel",
+    label: "text-teal",
+  },
+} as const;
+
+function ScoreCard({ label, player, value }: { label: string; player: Player; value: number }) {
+  const styles = playerStyles[player];
+
   return (
-    <div className="mt-5 grid grid-cols-3 gap-2" aria-label="Scoreboard">
-      <div className="rounded-xl border-2 border-coral-border bg-coral-panel px-2 py-2 text-center">
-        <div className="text-[10px] font-bold uppercase tracking-wider text-coral">Player X</div>
-        <div className="mt-0.5 text-xl font-bold text-ink">{score.X}</div>
+    <div
+      className={cn("rounded-xl border-2 px-1.5 py-1.5 text-center sm:px-2 sm:py-2", styles.panel)}
+    >
+      <div
+        className={cn(
+          "text-[9px] font-bold uppercase tracking-wide sm:text-[10px] sm:tracking-wider",
+          styles.label,
+        )}
+      >
+        {label} · {player}
       </div>
-      <div className="rounded-xl border-2 border-neutral-border bg-neutral-panel px-2 py-2 text-center">
-        <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-muted">
+      <div className="mt-0.5 text-lg font-bold text-ink sm:text-xl">{value}</div>
+    </div>
+  );
+}
+
+export function Scoreboard({ score, userPlayer }: { score: Score; userPlayer: Player }) {
+  const aiPlayer = getOtherPlayer(userPlayer);
+
+  return (
+    <div
+      className="mt-3 grid grid-cols-3 gap-1.5 sm:mt-5 sm:gap-2"
+      aria-label="You versus AI scoreboard"
+    >
+      <ScoreCard label="You" player={userPlayer} value={score[userPlayer]} />
+      <div className="rounded-xl border-2 border-neutral-border bg-neutral-panel px-1.5 py-1.5 text-center sm:px-2 sm:py-2">
+        <div className="text-[9px] font-bold uppercase tracking-wide text-neutral-muted sm:text-[10px] sm:tracking-wider">
           Draws
         </div>
-        <div className="mt-0.5 text-xl font-bold text-ink">{score.draws}</div>
+        <div className="mt-0.5 text-lg font-bold text-ink sm:text-xl">{score.draws}</div>
       </div>
-      <div className="rounded-xl border-2 border-teal-border bg-teal-panel px-2 py-2 text-center">
-        <div className="text-[10px] font-bold uppercase tracking-wider text-teal">Player O</div>
-        <div className="mt-0.5 text-xl font-bold text-ink">{score.O}</div>
-      </div>
+      <ScoreCard label="AI" player={aiPlayer} value={score[aiPlayer]} />
     </div>
   );
 }

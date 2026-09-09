@@ -4,8 +4,9 @@ import { cn } from "@/lib/utils";
 type Cell = "X" | "O" | "-";
 
 type Hint = {
+  title: string;
   message: string;
-  exploredStates: number;
+  detail?: string;
   version: number;
 };
 
@@ -20,7 +21,7 @@ type GameCellProps = {
 
 export function GameCell({ cell, index, isGameOver, onPlay, isDisabled, hint }: GameCellProps) {
   const label = hint
-    ? `Minimax suggests square ${index + 1}. ${hint.message}`
+    ? `AI suggests square ${index + 1}. ${hint.message}`
     : cell === "-"
       ? `Empty square ${index + 1}`
       : `${cell} in square ${index + 1}`;
@@ -61,11 +62,11 @@ export function GameCell({ cell, index, isGameOver, onPlay, isDisabled, hint }: 
             key={`hint-bubble-${hint.version}`}
             className="pointer-events-none absolute -top-11 left-1/2 z-30 -translate-x-1/2 -rotate-2 whitespace-nowrap rounded-lg border-2 border-ink bg-yellow-soft px-2 py-1 font-mono text-[9px] font-bold leading-tight text-ink shadow-button motion-safe:animate-bounce"
           >
-            <span className="block">Minimax whispers…</span>
+            <span className="block">{hint.title}</span>
             <span className="block text-[8px] text-muted">{hint.message}</span>
-            <span className="block text-[8px] text-muted">
-              {hint.exploredStates} futures checked
-            </span>
+            {hint.detail ? (
+              <span className="block text-[8px] text-muted">{hint.detail}</span>
+            ) : null}
           </span>
         </>
       ) : null}

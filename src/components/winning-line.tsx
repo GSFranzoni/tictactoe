@@ -1,6 +1,10 @@
-type WinningLineProps = { coordinates: [number, number, number, number]; player: "X" | "O" };
+type WinningLineProps = {
+  coordinates: [number, number, number, number];
+  player: "X" | "O";
+  label: "You" | "AI";
+};
 
-export function WinningLine({ coordinates, player }: WinningLineProps) {
+export function WinningLine({ coordinates, player, label }: WinningLineProps) {
   const color = player === "X" ? "var(--ds-coral)" : "var(--ds-teal)";
 
   return (
@@ -9,7 +13,7 @@ export function WinningLine({ coordinates, player }: WinningLineProps) {
       viewBox="0 0 100 100"
       preserveAspectRatio="none"
       role="img"
-      aria-label={`Winning line for ${player}`}
+      aria-label={`Winning line for ${label} (${player})`}
     >
       <line
         x1={coordinates[0]}
