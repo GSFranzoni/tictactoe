@@ -8,7 +8,6 @@ import { Scoreboard } from "@/components/scoreboard";
 import { SettingsDialog } from "@/components/settings-dialog";
 import { WinningLine } from "@/components/winning-line";
 import { type Hint, useTicTacToe } from "@/hooks/use-tictactoe";
-import { playControlClick } from "@/lib/sound";
 import { cn } from "@/lib/utils";
 
 const lineCoordinates: Record<string, [number, number, number, number]> = {
@@ -89,15 +88,14 @@ export function Board() {
   })();
 
   const winningLine = winner ? lineCoordinates[winner.combination.join(",")] : null;
+
   const canRequestHint =
     currentPlayer === userPlayer && !isMoving && !isGameOver && winner === null;
+
   const hintContent = hint ? getHintContent(hint) : null;
 
   return (
-    <main
-      className="relative grid min-h-screen justify-items-center items-start overflow-visible bg-canvas px-8 py-5 sm:place-items-center sm:overflow-hidden sm:px-6 sm:py-11"
-      onPointerDownCapture={playControlClick}
-    >
+    <main className="relative grid min-h-screen justify-items-center items-start overflow-visible bg-canvas px-8 py-5 sm:place-items-center sm:overflow-hidden sm:px-6 sm:py-11">
       <Boxes aria-hidden="true" className="hidden opacity-35 sm:flex" />
       <section
         className="relative z-10 w-full max-w-170 bg-canvas px-0 py-0 sm:rounded-[28px] sm:border-[3px] sm:border-ink sm:bg-surface sm:px-6 sm:py-6 sm:shadow-card-lg"
