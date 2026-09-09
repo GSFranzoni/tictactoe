@@ -103,12 +103,6 @@ export function Board() {
         <div className="mt-2 grid gap-4 sm:mt-4 sm:gap-5 md:grid-cols-[.86fr_1.14fr] md:items-center md:gap-7">
           <div className="space-y-4 sm:space-y-6">
             <header className="text-center sm:my-4.25">
-              <img
-                src={`${import.meta.env.BASE_URL}logos/logo.svg`}
-                alt=""
-                aria-hidden="true"
-                className="mx-auto mb-2 h-10 w-10 sm:mb-3 sm:h-14 sm:w-14"
-              />
               <p className="font-mono text-[9px] uppercase tracking-widest text-coral sm:text-[10px] sm:tracking-[.12em]">
                 The world’s smallest arena
               </p>
