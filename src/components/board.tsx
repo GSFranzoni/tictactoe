@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Coffee, Info, Lightbulb, RotateCcw, Settings } from "lucide-react";
 import { Boxes } from "@/components/background-boxes";
 import { GameCell } from "@/components/game-cell";
@@ -8,7 +8,7 @@ import { Scoreboard } from "@/components/scoreboard";
 import { SettingsDialog } from "@/components/settings-dialog";
 import { WinningLine } from "@/components/winning-line";
 import { type Hint, useTicTacToe } from "@/hooks/use-tictactoe";
-import { playClick } from "@/lib/sound";
+import { preloadClickSound } from "@/lib/sound";
 import { cn } from "@/lib/utils";
 
 const lineCoordinates: Record<string, [number, number, number, number]> = {
@@ -93,8 +93,12 @@ export function Board() {
     currentPlayer === userPlayer && !isMoving && !isGameOver && winner === null;
   const hintContent = hint ? getHintContent(hint) : null;
 
+  useEffect(() => {
+    preloadClickSound();
+  }, []);
+
   return (
-    <main className="relative grid min-h-screen justify-items-center items-start overflow-hidden bg-canvas px-8 py-5 sm:place-items-center sm:px-6 sm:py-11">
+    <main className="relative grid min-h-screen justify-items-center items-start overflow-visible bg-canvas px-8 py-5 sm:place-items-center sm:overflow-hidden sm:px-6 sm:py-11">
       <Boxes aria-hidden="true" className="hidden opacity-35 sm:flex" />
       <section
         className="relative z-10 w-full max-w-170 bg-canvas px-0 py-0 sm:rounded-[28px] sm:border-[3px] sm:border-ink sm:bg-surface sm:px-6 sm:py-6 sm:shadow-card-lg"
@@ -143,10 +147,7 @@ export function Board() {
                       ? { ...hintContent, version: hint.version }
                       : undefined
                   }
-                  onPlay={(move) => {
-                    playClick();
-                    play(move);
-                  }}
+                  onPlay={play}
                 />
               ))}
             </div>

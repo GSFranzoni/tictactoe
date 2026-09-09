@@ -11,6 +11,7 @@ import {
   type Winner,
 } from "@/lib/game";
 import { analyzeMove } from "@/lib/minimax";
+import { playClick } from "@/lib/sound";
 export type { Board, Player } from "@/lib/game";
 
 export type GameSettings = {
@@ -140,6 +141,7 @@ export const useTicTacToe = () => {
     setHint(null);
     const nextBoard = makeMoveOnBoard(board, index, userPlayer);
     setBoard(nextBoard);
+    playClick();
 
     if (finishRound(nextBoard)) {
       return;
