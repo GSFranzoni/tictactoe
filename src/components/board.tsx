@@ -195,6 +195,16 @@ export function Board() {
             <RotateCcw aria-hidden="true" className="h-4 w-4" />
             <span className="hidden sm:inline">Reset the toy</span>
           </button>
+          <a
+            href="https://buymeacoffee.com/gsfranzoni"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-[10px] border-2 border-ink bg-coral-soft px-3 py-2 text-xs font-bold text-ink shadow-button transition hover:-translate-x-px hover:-translate-y-px hover:bg-coral hover:text-surface hover:shadow-button-hover active:translate-x-0.5 active:translate-y-0.5 active:shadow-button-active sm:px-4"
+            aria-label="Support the project on Buy Me a Coffee"
+          >
+            <Coffee aria-hidden="true" className="h-4 w-4" />
+            <span className="hidden sm:inline">Support the project</span>
+          </a>
           <button
             type="button"
             className="inline-flex items-center gap-1.5 rounded-[10px] border-2 border-ink bg-surface px-3 py-2 text-xs font-bold text-ink shadow-button transition hover:-translate-x-px hover:-translate-y-px hover:bg-yellow-soft hover:shadow-button-hover active:translate-x-0.5 active:translate-y-0.5 active:shadow-button-active sm:px-4"
@@ -211,16 +221,6 @@ export function Board() {
           >
             <Info aria-hidden="true" className="h-4 w-4" />
           </button>
-          <a
-            href="https://buymeacoffee.com/gsfranzoni"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-[10px] border-2 border-ink bg-coral-soft px-3 py-2 text-xs font-bold text-ink shadow-button transition hover:-translate-x-px hover:-translate-y-px hover:bg-coral hover:text-surface hover:shadow-button-hover active:translate-x-0.5 active:translate-y-0.5 active:shadow-button-active sm:px-4"
-            aria-label="Support the project on Buy Me a Coffee"
-          >
-            <Coffee aria-hidden="true" className="h-4 w-4" />
-            <span className="hidden sm:inline">Support the project</span>
-          </a>
         </div>
         <p className="sr-only" role="status" aria-live="polite">
           {hint && hintContent
