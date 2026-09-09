@@ -6,7 +6,7 @@
 
 A small, playable Tic-Tac-Toe game that makes its decision-making visible.
 
-![A visual walkthrough of the TicTacToe Minimax game](./assets/demo.gif)
+![A visual walkthrough of the TicTacToe Minimax game](./public/assets/demo.gif)
 
 ## Why this exists
 

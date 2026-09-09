@@ -11,6 +11,16 @@ import { playClick } from "@/lib/sound";
 
 const playerNames = { X: "Player X", O: "Player O" } as const;
 
+const getHintMessage = (score: number, square: number) => {
+  if (score > 0) {
+    return `Winning route! Try square ${square}.`;
+  }
+  if (score === 0) {
+    return `Safe route! Square ${square} forces a draw.`;
+  }
+  return `Best defense: try square ${square}.`;
+};
+
 const lineCoordinates: Record<string, [number, number, number, number]> = {
   "0,1,2": [10, 16.7, 90, 16.7],
   "3,4,5": [10, 50, 90, 50],
@@ -25,8 +35,18 @@ const lineCoordinates: Record<string, [number, number, number, number]> = {
 export function Board() {
   const userPlayer: Player = "X";
 
-  const { board, currentPlayer, isGameOver, winner, score, play, resetGame, isMoving } =
-    useTicTacToe({ userPlayer });
+  const {
+    board,
+    currentPlayer,
+    isGameOver,
+    winner,
+    score,
+    hint,
+    play,
+    requestHint,
+    resetGame,
+    isMoving,
+  } = useTicTacToe({ userPlayer });
 
   const status = (() => {
     if (isMoving && currentPlayer !== userPlayer) {
@@ -44,6 +64,11 @@ export function Board() {
   })();
 
   const winningLine = winner ? lineCoordinates[winner.combination.join(",")] : null;
+
+  const canRequestHint =
+    currentPlayer === userPlayer && !isMoving && !isGameOver && winner === null;
+
+  const hintMessage = hint ? getHintMessage(hint.score, hint.move + 1) : null;
 
   return (
     <main className="relative grid min-h-screen place-items-center overflow-hidden bg-canvas px-3.5 py-6 sm:px-5 sm:py-11">
@@ -94,6 +119,15 @@ export function Board() {
                   index={index}
                   isGameOver={isGameOver || isMoving}
                   isDisabled={currentPlayer !== userPlayer}
+                  hint={
+                    hint && hint.move === index && hintMessage
+                      ? {
+                          message: hintMessage,
+                          exploredStates: hint.exploredStates,
+                          version: hint.version,
+                        }
+                      : undefined
+                  }
                   onPlay={(index) => {
                     playClick();
                     play(index);
@@ -136,12 +170,42 @@ export function Board() {
             <span>Player O</span>
           </div>
         </div>
-        <button
-          className="mx-auto mt-4 block rounded-[10px] border-2 border-ink bg-surface px-4 py-2 text-xs font-bold text-ink shadow-button transition hover:-translate-x-px hover:-translate-y-px hover:bg-yellow-soft hover:shadow-button-hover active:translate-x-0.5 active:translate-y-0.5 active:shadow-button-active"
-          onClick={resetGame}
-        >
-          <span aria-hidden="true">↻</span> Reset the toy
-        </button>
+        <div className="mt-4 flex flex-wrap justify-center gap-3">
+          <button
+            className="inline-flex items-center gap-1.5 rounded-[10px] border-2 border-ink bg-yellow-soft px-4 py-2 text-xs font-bold text-ink shadow-button transition hover:-translate-x-px hover:-translate-y-px hover:bg-yellow hover:shadow-button-hover active:translate-x-0.5 active:translate-y-0.5 active:shadow-button-active disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:bg-yellow-soft disabled:hover:shadow-button"
+            onClick={requestHint}
+            disabled={!canRequestHint}
+            aria-pressed={Boolean(hint)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+              className="h-4 w-4"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9.7 18.4h4.6M10 21h4m-6.5-7.2A6 6 0 1 1 16.5 14c-.9.8-1.5 1.5-1.7 2.4H9.2c-.2-.9-.8-1.6-1.7-2.4Z"
+              />
+            </svg>
+            {hint ? "Hint again" : "Ask Minimax"}
+          </button>
+          <button
+            className="rounded-[10px] border-2 border-ink bg-surface px-4 py-2 text-xs font-bold text-ink shadow-button transition hover:-translate-x-px hover:-translate-y-px hover:bg-yellow-soft hover:shadow-button-hover active:translate-x-0.5 active:translate-y-0.5 active:shadow-button-active"
+            onClick={resetGame}
+          >
+            <span aria-hidden="true">↻</span> Reset the toy
+          </button>
+        </div>
+        <p className="sr-only" role="status" aria-live="polite">
+          {hint && hintMessage
+            ? `Minimax suggests square ${hint.move + 1}. ${hintMessage} ${hint.exploredStates} futures checked.`
+            : ""}
+        </p>
       </section>
     </main>
   );
