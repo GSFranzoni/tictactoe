@@ -16,12 +16,14 @@ export type SearchNode = {
   children: SearchNode[];
 };
 
+const winScore = 10;
+
 export function analyzeMove(board: Board, player: Player) {
   const cache = new Map<string, SearchNode>();
 
   const visits: string[] = [];
 
-  function visit(position: Board, turn: Player): SearchNode {
+  function visit(position: Board, turn: Player, depth: number): SearchNode {
     const key = position.join("") + turn;
 
     const cached = cache.get(key);
@@ -37,7 +39,7 @@ export function analyzeMove(board: Board, player: Player) {
     const node: SearchNode = {
       board: position,
       player: turn,
-      score: winner ? (winner.player === player ? 1 : -1) : 0,
+      score: winner ? (winner.player === player ? winScore - depth : depth - winScore) : 0,
       move: null,
       children: [],
     };
@@ -49,7 +51,7 @@ export function analyzeMove(board: Board, player: Player) {
     }
 
     node.children = getAvailableMoveIndexes(position).map((move) => ({
-      ...visit(makeMoveOnBoard(position, move, turn), getOtherPlayer(turn)),
+      ...visit(makeMoveOnBoard(position, move, turn), getOtherPlayer(turn), depth + 1),
       move,
     }));
 
@@ -60,7 +62,7 @@ export function analyzeMove(board: Board, player: Player) {
     return node;
   }
 
-  const root = visit(board, player);
+  const root = visit(board, player, 0);
 
   const bestMove = root.children.find((child) => child.score === root.score)?.move ?? null;
 
