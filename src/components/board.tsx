@@ -94,10 +94,10 @@ export function Board() {
   const hintContent = hint ? getHintContent(hint) : null;
 
   return (
-    <main className="relative grid min-h-screen place-items-center overflow-hidden bg-canvas px-3 py-4 sm:px-5 sm:py-11">
-      <Boxes aria-hidden="true" className="opacity-35" />
+    <main className="relative grid min-h-screen justify-items-center items-start overflow-hidden bg-canvas px-4 py-5 sm:place-items-center sm:px-5 sm:py-11">
+      <Boxes aria-hidden="true" className="hidden opacity-35 sm:flex" />
       <section
-        className="relative z-10 w-full max-w-170 rounded-3xl border-[3px] border-ink bg-surface px-3 py-4 shadow-card sm:rounded-[28px] sm:px-6 sm:py-6 sm:shadow-card-lg"
+        className="relative z-10 w-full max-w-170 bg-canvas px-0 py-0 sm:rounded-[28px] sm:border-[3px] sm:border-ink sm:bg-surface sm:px-6 sm:py-6 sm:shadow-card-lg"
         aria-label="Tic-tac-toe game"
       >
         <div className="mt-2 grid gap-4 sm:mt-4 sm:gap-5 md:grid-cols-[.86fr_1.14fr] md:items-center md:gap-7">
