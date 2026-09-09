@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import { Coffee, Info, Lightbulb, RotateCcw, Settings } from "lucide-react";
 import { Boxes } from "@/components/background-boxes";
 import { GameCell } from "@/components/game-cell";
@@ -8,7 +8,7 @@ import { Scoreboard } from "@/components/scoreboard";
 import { SettingsDialog } from "@/components/settings-dialog";
 import { WinningLine } from "@/components/winning-line";
 import { type Hint, useTicTacToe } from "@/hooks/use-tictactoe";
-import { preloadClickSound } from "@/lib/sound";
+import { playClick, preloadClickSound } from "@/lib/sound";
 import { cn } from "@/lib/utils";
 
 const lineCoordinates: Record<string, [number, number, number, number]> = {
@@ -97,8 +97,17 @@ export function Board() {
     preloadClickSound();
   }, []);
 
+  const playControlClick = (event: MouseEvent<HTMLElement>) => {
+    if (event.target instanceof Element && event.target.closest("button:not(:disabled), a[href]")) {
+      playClick();
+    }
+  };
+
   return (
-    <main className="relative grid min-h-screen justify-items-center items-start overflow-visible bg-canvas px-8 py-5 sm:place-items-center sm:overflow-hidden sm:px-6 sm:py-11">
+    <main
+      className="relative grid min-h-screen justify-items-center items-start overflow-visible bg-canvas px-8 py-5 sm:place-items-center sm:overflow-hidden sm:px-6 sm:py-11"
+      onClickCapture={playControlClick}
+    >
       <Boxes aria-hidden="true" className="hidden opacity-35 sm:flex" />
       <section
         className="relative z-10 w-full max-w-170 bg-canvas px-0 py-0 sm:rounded-[28px] sm:border-[3px] sm:border-ink sm:bg-surface sm:px-6 sm:py-6 sm:shadow-card-lg"
