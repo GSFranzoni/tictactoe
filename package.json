@@ -11,6 +11,8 @@
     "lint": "oxlint --fix && tailwint --fix \"src/**/*.tsx\"",
     "video:studio": "remotion studio src/remotion/index.ts",
     "video:render": "remotion render src/remotion/index.ts TicTacToeReveal out/tictactoe-cinematic.mp4",
+    "video:thumbnail": "remotion still src/remotion/index.ts TicTacToeReveal out/tictactoe-thumbnail.png --frame=1040 --image-format=png --overwrite",
+    "video:export": "bun run video:render && bun run video:thumbnail",
     "preview": "vite preview"
   },
   "dependencies": {
