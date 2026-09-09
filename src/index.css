@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+
+:root {
+  --ds-canvas: #f8f5ee;
+  --ds-surface: #fffdf8;
+  --ds-ink: #172b4d;
+  --ds-muted: #5c6b7d;
+  --ds-muted-soft: #a7b0ba;
+  --ds-neutral-border: #d9e0e8;
+  --ds-neutral-panel: #f8fafb;
+  --ds-neutral-muted: #7f8c99;
+  --ds-shadow: #dfe4e6;
+
+  --ds-coral: #f05d4e;
+  --ds-coral-soft: #ffe8df;
+  --ds-coral-border: #f5c1b5;
+  --ds-coral-panel: #fff1eb;
+
+  --ds-teal: #1f9b91;
+  --ds-teal-bright: #62c6b3;
+  --ds-teal-soft: #dcf5ed;
+  --ds-teal-border: #a5dbca;
+  --ds-teal-panel: #eaf9f3;
+
+  --ds-yellow: #f7b72f;
+  --ds-yellow-soft: #fff5c8;
+  --ds-yellow-muted: #d8b967;
+  --ds-empty: #fff8df;
+  --ds-empty-pressed: #fff9e8;
+  --ds-empty-shadow: #eadfba;
+}
+
+@theme inline {
+  --font-sans: "Space Grotesk", sans-serif;
+  --font-mono: "DM Mono", monospace;
+  --color-canvas: var(--ds-canvas);
+  --color-surface: var(--ds-surface);
+  --color-ink: var(--ds-ink);
+  --color-muted: var(--ds-muted);
+  --color-muted-soft: var(--ds-muted-soft);
+  --color-neutral-border: var(--ds-neutral-border);
+  --color-neutral-panel: var(--ds-neutral-panel);
+  --color-neutral-muted: var(--ds-neutral-muted);
+  --color-shadow: var(--ds-shadow);
+  --color-coral: var(--ds-coral);
+  --color-coral-soft: var(--ds-coral-soft);
+  --color-coral-border: var(--ds-coral-border);
+  --color-coral-panel: var(--ds-coral-panel);
+  --color-teal: var(--ds-teal);
+  --color-teal-bright: var(--ds-teal-bright);
+  --color-teal-soft: var(--ds-teal-soft);
+  --color-teal-border: var(--ds-teal-border);
+  --color-teal-panel: var(--ds-teal-panel);
+  --color-yellow: var(--ds-yellow);
+  --color-yellow-soft: var(--ds-yellow-soft);
+  --color-yellow-muted: var(--ds-yellow-muted);
+  --color-empty: var(--ds-empty);
+  --color-empty-pressed: var(--ds-empty-pressed);
+  --color-empty-shadow: var(--ds-empty-shadow);
+
+  --shadow-card: 7px 9px 0 var(--ds-ink);
+  --shadow-card-lg: 10px 12px 0 var(--ds-ink);
+  --shadow-button: 3px 3px 0 var(--ds-ink);
+  --shadow-button-hover: 4px 4px 0 var(--ds-ink);
+  --shadow-button-active: 1px 1px 0 var(--ds-ink);
+  --shadow-cell-empty: inset 0 -5px 0 var(--ds-empty-shadow), 0 4px 0 var(--ds-ink);
+  --shadow-cell-x: inset 0 -5px 0 var(--ds-coral-border), 0 4px 0 var(--ds-ink);
+  --shadow-cell-o: inset 0 -5px 0 var(--ds-teal-border), 0 4px 0 var(--ds-ink);
+}
+
+:root {
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--ds-ink);
+  background: var(--ds-canvas);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+button {
+  font: inherit;
+}

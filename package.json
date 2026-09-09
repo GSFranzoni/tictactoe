@@ -1,0 +1,47 @@
+{
+  "name": "tictactoe",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "lint": "oxlint --fix && tailwint --fix \"src/**/*.tsx\"",
+    "test:minimax": "node scripts/check-minimax.mjs",
+    "video:studio": "remotion studio src/remotion/index.ts",
+    "video:render": "remotion render src/remotion/index.ts TicTacToeReveal out/tictactoe-cinematic.mp4",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource/dm-mono": "^5.3.0",
+    "@fontsource/space-grotesk": "^5.3.0",
+    "@remotion/cli": "^4.0.522",
+    "@remotion/media": "^4.0.522",
+    "@tailwindcss/vite": "^4.3.3",
+    "cn": "^0.2.6",
+    "framer-motion": "^13.2.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "remotion": "^4.0.522",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.7",
+    "@remotion/tailwind-v4": "^4.0.522",
+    "@rolldown/plugin-babel": "^0.2.3",
+    "@tailwindcss/language-server": "^0.16.0",
+    "@types/babel__core": "^7.20.5",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^6.1.0",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "oxfmt": "^0.67.0",
+    "oxlint": "^1.79.0",
+    "tailwint": "^1.1.15",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.2"
+  }
+}
