@@ -66,7 +66,7 @@ bun run video:studio
 # Render the Minimax video to out/tictactoe-cinematic.mp4
 bun run video:render
 
-# Render the video thumbnail to out/tictactoe-thumbnail.png
+# Render the opening-frame thumbnail (with the cursor) to out/tictactoe-thumbnail.png
 bun run video:thumbnail
 
 # Export both files

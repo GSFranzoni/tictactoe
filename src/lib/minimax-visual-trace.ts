@@ -21,6 +21,11 @@ export type VisualMinimaxTrace = {
   exploredStates: number;
 };
 
+// The game engine keeps depth-weighted scores to prefer a faster win (and a
+// later loss). The video teaches the three Minimax outcomes, so it presents
+// those scores as the conventional -1 / 0 / +1 values.
+export const visualScore = (score: number) => Math.sign(score);
+
 const terminalDescendant = (node: SearchNode): SearchNode => {
   if (node.children.length === 0) {
     return node;
@@ -64,12 +69,21 @@ export const createVisualMinimaxTrace = (
   }
 
   const uniqueScores = [-1, 0, 1]
-    .map((score) => search.root.children.find((child) => child.score === score))
+    .map((score) => search.root.children.find((child) => visualScore(child.score) === score))
     .filter((child): child is SearchNode => Boolean(child));
   const visibleNodes = [...uniqueScores];
 
   if (!visibleNodes.includes(selected)) {
-    visibleNodes.push(selected);
+    // When several moves share an outcome, show the engine's actual choice
+    // rather than an arbitrary representative of that outcome.
+    const equivalentOutcome = visibleNodes.findIndex(
+      (node) => visualScore(node.score) === visualScore(selected.score),
+    );
+    if (equivalentOutcome >= 0) {
+      visibleNodes[equivalentOutcome] = selected;
+    } else {
+      visibleNodes.push(selected);
+    }
   }
   for (const child of search.root.children) {
     if (visibleNodes.length >= 3) {
@@ -84,7 +98,7 @@ export const createVisualMinimaxTrace = (
     root: search.root,
     candidates: visibleNodes
       .slice(0, 3)
-      .sort((left, right) => left.score - right.score)
+      .sort((left, right) => visualScore(left.score) - visualScore(right.score))
       .map((node) => ({
         node,
         responses: selectResponses(node),
@@ -107,7 +121,10 @@ export const outcomeLabel = (node: SearchNode) => {
   return "DRAW";
 };
 
-export const scoreText = (score: number) => (score > 0 ? `+${score}` : String(score));
+export const scoreText = (score: number) => {
+  const normalized = visualScore(score);
+  return normalized > 0 ? `+${normalized}` : String(normalized);
+};
 
 export const nextPlayerLabel = (player: Player) =>
   player === "X" ? "PLAYER X · MIN" : "PLAYER O · MAX";
