@@ -24,11 +24,16 @@ It is a small project about algorithms, visualization, and, above all, curiosity
 
 - Lets you play as `X` against an unbeatable `O` opponent.
 - Uses Minimax to evaluate every legal continuation of a position.
+- Includes a from-scratch neural network as an additional AI mode.
 - Memoizes board-and-turn states during a search.
 - Shows game state, score, turn feedback, animations, and sound effects in the React app.
 - Renders a cinematic explanation of the search tree with Remotion.
 
 The game and the video share the same Minimax implementation, so the visualization represents a real search rather than a mocked-up explanation.
+
+## A neural network, too
+
+As an additional challenge, the project includes a small neural network implementation written from scratch in TypeScript. The network learns to estimate the value of a Tic-Tac-Toe position from examples generated with Minimax. It uses dense layers, activation functions, backpropagation, Mean Squared Error, and SGD, with the training accuracy displayed in the game settings modal.
 
 ## Support the project
 
@@ -77,12 +82,14 @@ bun run video:export
 
 ```text
 src/
-  components/        Game UI and the Remotion composition
-  hooks/             Game lifecycle and AI turn handling
-  lib/minimax.ts     Shared Minimax search
-  remotion/          Composition registration and visual primitives
-public/logos/        App logo and favicon
-assets/demo.mp4      Project demo
+  components/            Game UI and the Remotion composition
+  hooks/                 Game lifecycle and AI turn handling
+  lib/minimax.ts         Shared Minimax search
+  lib/neural-network.ts  Neural network layers, losses, and optimizer
+  lib/training.ts        Neural network dataset generation and training
+  remotion/              Composition registration and visual primitives
+public/logos/            App logo and favicon
+assets/demo.mp4          Project demo
 ```
 
 ## Deployment
