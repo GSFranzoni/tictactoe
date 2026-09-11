@@ -8,9 +8,17 @@ type ModalProps = {
   labelledBy: string;
   closeLabel: string;
   onClose: () => void;
+  isDismissible?: boolean;
 };
 
-export function Modal({ children, className, labelledBy, closeLabel, onClose }: ModalProps) {
+export function Modal({
+  children,
+  className,
+  labelledBy,
+  closeLabel,
+  onClose,
+  isDismissible = true,
+}: ModalProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   const lastFocusedElement = useRef<HTMLElement | null>(null);
@@ -29,12 +37,12 @@ export function Modal({ children, className, labelledBy, closeLabel, onClose }: 
     <div
       className="fixed inset-0 z-50 grid place-items-center bg-ink/35 p-3 backdrop-blur-[2px] sm:p-4"
       onMouseDown={(event) => {
-        if (event.target === event.currentTarget) {
+        if (isDismissible && event.target === event.currentTarget) {
           onClose();
         }
       }}
       onKeyDown={(event) => {
-        if (event.key === "Escape") {
+        if (isDismissible && event.key === "Escape") {
           onClose();
         }
       }}
@@ -54,6 +62,7 @@ export function Modal({ children, className, labelledBy, closeLabel, onClose }: 
           className="absolute right-3 top-3 z-10 grid h-8 w-8 place-items-center rounded-lg border-2 border-ink bg-surface text-lg font-bold text-ink shadow-button transition hover:-translate-x-px hover:-translate-y-px hover:bg-coral-soft hover:shadow-button-hover active:translate-x-0.5 active:translate-y-0.5 active:shadow-button-active"
           onClick={onClose}
           aria-label={closeLabel}
+          disabled={!isDismissible}
         >
           <X aria-hidden="true" className="h-4 w-4" />
         </button>

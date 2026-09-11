@@ -5,6 +5,15 @@
   "rules": {
     "react/rules-of-hooks": "error",
     "react/only-export-components": ["warn", { "allowConstantExport": true }],
-    "curly": "error"
+    "curly": "error",
+    "no-unused-vars": [
+      "warn",
+      {
+        "fix": {
+          "imports": "safe-fix",
+          "variables": "off"
+        }
+      }
+    ]
   }
 }

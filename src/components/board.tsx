@@ -16,7 +16,7 @@ const lineCoordinates: Record<string, [number, number, number, number]> = {
   "6,7,8": [10, 83.3, 90, 83.3],
   "0,3,6": [16.7, 10, 16.7, 90],
   "1,4,7": [50, 10, 50, 90],
-  "2,5,8": [83.3, 10, 10, 90],
+  "2,5,8": [83.3, 10, 83.3, 90],
   "0,4,8": [10, 10, 90, 90],
   "2,4,6": [90, 10, 10, 90],
 };
@@ -29,6 +29,14 @@ const getHintContent = (hint: Hint) => {
       title: "Dumb AI shrugs…",
       message: `Try square ${square}.`,
       detail: "Random legal square.",
+    };
+  }
+
+  if (hint.mode === "neural") {
+    return {
+      title: "Neural AI thinks…",
+      message: `The network suggests square ${square}.`,
+      detail: "Learned from endgames.",
     };
   }
 
@@ -71,6 +79,8 @@ export function Board() {
     resetGame,
     applySettings,
     isMoving,
+    isTraining,
+    trainingProgress,
   } = useTicTacToe();
   const userPlayer = settings.userPlayer;
 
@@ -179,10 +189,10 @@ export function Board() {
             onClick={requestHint}
             disabled={!canRequestHint}
             aria-pressed={Boolean(hint)}
-            aria-label={hint ? "Ask AI again" : "Ask AI"}
+            aria-label="Ask AI"
           >
             <Lightbulb aria-hidden="true" className="h-4 w-4" />
-            <span className="hidden sm:inline">{hint ? "Ask AI again" : "Ask AI"}</span>
+            <span className="hidden sm:inline">Ask AI</span>
           </button>
           <button
             type="button"
@@ -230,9 +240,13 @@ export function Board() {
       {isSettingsOpen ? (
         <SettingsDialog
           settings={settings}
-          onClose={() => setIsSettingsOpen(false)}
-          onSave={(nextSettings) => {
-            applySettings(nextSettings);
+          isTraining={isTraining}
+          trainingProgress={trainingProgress}
+          onClose={() => {
+            setIsSettingsOpen(false);
+          }}
+          onSave={async (nextSettings) => {
+            await applySettings(nextSettings);
             setIsSettingsOpen(false);
           }}
         />
